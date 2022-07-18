@@ -33,7 +33,8 @@ class TaskController extends Controller
             'task' => $request->task,
             'description' => $request->description,
             'due_date' => $request->due_date,
-            'status' => false
+            'status' => false,
+            'priority' => $request->priority
         ];
 
         Task::create($taskData);
@@ -64,7 +65,8 @@ class TaskController extends Controller
         $taskData = [
             'task' => $request->task,
             'description' => $request->description,
-            'due_date' => $request->due_date
+            'due_date' => $request->due_date,
+            'priority' => $request->priority
         ];
         Task::find($id)->update($taskData);
         return response()->json("Task Updated");
