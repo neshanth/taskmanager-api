@@ -32,7 +32,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return response()->json("Login Success", 200);
         }
-        return response()->json(['error' => 'Invalid credentials']);
+        return response()->json('Invalid credentials', 500);
     }
 
     public function logout(Request $request)

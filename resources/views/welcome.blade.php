@@ -1,2 +1,3 @@
 <?php
-dd($_COOKIE);
+
+echo "Welcome";
