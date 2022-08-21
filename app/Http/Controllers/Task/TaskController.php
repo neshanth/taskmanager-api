@@ -66,7 +66,8 @@ class TaskController extends Controller
             'task' => $request->task,
             'description' => $request->description,
             'due_date' => $request->due_date,
-            'priority' => $request->priority
+            'priority' => $request->priority,
+            'status' => $request->status
         ];
         Task::find($id)->update($taskData);
         return response()->json("Task Updated");
