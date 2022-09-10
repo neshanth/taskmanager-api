@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-use Illuminate\Http\Response;
-
 class TaskController extends Controller
 {
     /**
@@ -31,10 +29,8 @@ class TaskController extends Controller
     {
         $taskData = [
             'task' => $request->task,
-            'description' => $request->description,
             'due_date' => $request->due_date,
             'status' => false,
-            'priority' => $request->priority
         ];
 
         Task::create($taskData);
@@ -64,9 +60,7 @@ class TaskController extends Controller
     {
         $taskData = [
             'task' => $request->task,
-            'description' => $request->description,
             'due_date' => $request->due_date,
-            'priority' => $request->priority,
             'status' => $request->status
         ];
         Task::find($id)->update($taskData);
