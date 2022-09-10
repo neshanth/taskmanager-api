@@ -31,6 +31,7 @@ class TaskController extends Controller
             'task' => $request->task,
             'due_date' => $request->due_date,
             'status' => false,
+            'user_id' => $request->user_id
         ];
 
         Task::create($taskData);

@@ -30,7 +30,7 @@ class AuthController extends Controller
     {
         if (Auth::guard()->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            return response()->json("Login Success", 200);
+            return response()->json(['user' => $request->user(), 'msg' => 'Login Success'], 200);
         }
         return response()->json('Invalid credentials', 500);
     }
