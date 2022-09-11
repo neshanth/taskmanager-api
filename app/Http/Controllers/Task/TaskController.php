@@ -29,6 +29,11 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'task' => 'required',
+            'due_date' => 'required'
+        ]);
+
         $taskData = [
             'task' => $request->task,
             'due_date' => $request->due_date,
@@ -61,6 +66,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'task' => 'required',
+            'due_date' => 'required'
+        ]);
+
         $taskData = [
             'task' => $request->task,
             'due_date' => $request->due_date,
