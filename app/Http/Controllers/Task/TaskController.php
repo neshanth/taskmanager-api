@@ -110,11 +110,36 @@ class TaskController extends Controller
     // Get Task stats
     public function getTaskStats($userId)
     {
+        $completedTasksCount = $this->getCompletedTasks($userId);
+        $pendingTasksCount = $this->getPendingTasks($userId);
+        $totalTasks = $this->getTotalTasks($userId);
+        $stats = [
+            'completed' => $completedTasksCount,
+            'pending' => $pendingTasksCount,
+            'tasks' => $totalTasks
+        ];
+
+        return response()->json($stats);
+    }
+    private function getCompletedTasks($userId)
+    {
         $completedTasks = DB::table("tasks")
             ->where("user_id", "=", $userId)
             ->where("status", "=", 1)
             ->get();
-        $completedTasksCount = count($completedTasks);
-        return response()->json($completedTasksCount);
+        return count($completedTasks);
+    }
+    private function getPendingTasks($userId)
+    {
+        $pendingTasks = DB::table("tasks")
+            ->where("user_id", "=", $userId)
+            ->where("status", "=", 0)
+            ->get();
+        return count($pendingTasks);
+    }
+    private function getTotalTasks($userId)
+    {
+        $totalTasks = Task::where("user_id", "=", $userId)->count();
+        return $totalTasks;
     }
 }
