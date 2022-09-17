@@ -17,4 +17,5 @@ Route::post("/logout", [AuthController::class, 'logout']);
 
 Route::resource("tasks", TaskController::class)->middleware("auth:sanctum");
 //Task Status
-Route::patch("/tasks/status/{id}", [TaskController::class, 'changeStatus']);
+Route::patch("/tasks/status/{id}", [TaskController::class, 'changeStatus'])->middleware("auth:sanctum");
+Route::get("/tasks/stats/{id}", [TaskController::class, 'getTaskStats'])->middleware("auth:sanctum");
