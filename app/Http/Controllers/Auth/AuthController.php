@@ -29,7 +29,7 @@ class AuthController extends Controller
             return response()->json("Registration Successful");
         }
 
-        return response()->sjon("Something went wrong", 500);
+        return response()->json("Something went wrong", 500);
     }
 
     public function login(Request $request)
