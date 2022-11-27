@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,11 +18,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function(){
-            $tasks = DB::table("tasks")->where("email","=","demouser@demo.com")->get();
+            $users = DB::table("users")->where("email","=","demouser@demo.com")->get();
+            $userId = $users[0]->id;
+            $tasks = DB::table("tasks")->where("user_id","=", $userId)->get();
             if(count($tasks) > 0){
-                DB::table("tasks")->where("user_id","=","demouser@demo.com")->delete();
+                DB::table("tasks")->where("user_id","=",$userId)->delete();
             }
-        })->hourly();
+        })->daily();
     }
 
     /**
