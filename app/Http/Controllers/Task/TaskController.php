@@ -31,7 +31,8 @@ class TaskController extends Controller
     {
         $request->validate([
             'task' => 'required',
-            'due_date' => 'required'
+            'due_date' => 'required|date',
+            'user_id'=>'required'
         ]);
 
         $taskData = [
@@ -68,7 +69,8 @@ class TaskController extends Controller
     {
         $request->validate([
             'task' => 'required',
-            'due_date' => 'required'
+            'due_date' => 'required|date',
+            'status' => 'required|boolean'
         ]);
 
         $taskData = [

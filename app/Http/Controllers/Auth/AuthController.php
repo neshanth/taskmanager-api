@@ -34,6 +34,11 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+         $request->validate([
+            'email' => "required",
+            'password' => 'required'
+        ]);
+
         if (Auth::guard()->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             return response()->json(['user' => $request->user(), 'msg' => 'Login Success'], 200);
