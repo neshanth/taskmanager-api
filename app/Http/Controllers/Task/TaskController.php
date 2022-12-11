@@ -97,14 +97,27 @@ class TaskController extends Controller
         return response()->json("Failed to Delete", 500);
     }
 
-    // Change status of checkbox
-    public function changeStatus($id)
+    // Change status of task
+    public function changeStatus(Request $request, $id)
     {
         $task = Task::find($id);
         if ($task) {
             $task->status = !$task->status;
+            $userId = $request->user()->id;
             $task->save();
-            return response()->json("Task Status Updated");
+            $completedTasks = DB::table("tasks")
+            ->where("user_id", "=", $userId)
+            ->where("status", "=", 1)
+            ->get();
+            $pendingTasks = DB::table("tasks")
+            ->where("user_id", "=", $userId)
+            ->where("status", "=", 0)
+            ->get();
+            return response()->json([
+                'msg' => 'Task Status Updated',
+                'completed' => $completedTasks,
+                'pending' => $pendingTasks
+            ]);
         } else {
             return response()->json("Task Not Found");
         }
