@@ -157,4 +157,9 @@ class TaskController extends Controller
         $totalTasks = Task::where("user_id", "=", $userId)->count();
         return $totalTasks;
     }
+    public function getRecentTasks($userId)
+    {
+        $recentTasks = DB::table("tasks")->where("user_id","=", $userId)->latest()->take(5)->get();
+        return response()->json(['recent' => $recentTasks]);
+    }
 }
