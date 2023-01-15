@@ -32,14 +32,16 @@ class TaskController extends Controller
         $request->validate([
             'task' => 'required',
             'due_date' => 'required|date',
-            'user_id'=>'required'
+            'user_id'=>'required',
+            'description'=>'max:50'
         ]);
 
         $taskData = [
             'task' => $request->task,
             'due_date' => $request->due_date,
             'status' => false,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'description'=> $request->description
         ];
 
         Task::create($taskData);
@@ -70,13 +72,15 @@ class TaskController extends Controller
         $request->validate([
             'task' => 'required',
             'due_date' => 'required|date',
-            'status' => 'required|boolean'
+            'status' => 'required|boolean',
+            'description'=>'max:50'
         ]);
 
         $taskData = [
             'task' => $request->task,
             'due_date' => $request->due_date,
-            'status' => $request->status
+            'status' => $request->status,
+            'description'=> $request->description
         ];
         Task::find($id)->update($taskData);
         return response()->json("Task Updated");
