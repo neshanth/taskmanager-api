@@ -19,3 +19,4 @@ Route::resource("tasks", TaskController::class)->middleware("auth:sanctum");
 Route::patch("/tasks/status/{id}", [TaskController::class, 'changeStatus'])->middleware("auth:sanctum");
 Route::get("/tasks/stats/{id}", [TaskController::class, 'getTaskStats'])->middleware("auth:sanctum");
 Route::get("/tasks/recent/{id}",[TaskController::class,'getRecentTasks'])->middleware("auth:sanctum");
+

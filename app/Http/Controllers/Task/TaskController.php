@@ -166,4 +166,16 @@ class TaskController extends Controller
         $recentTasks = DB::table("tasks")->where("user_id","=", $userId)->latest()->take(5)->get();
         return response()->json(['recent' => $recentTasks]);
     }
+
+    // public function test()
+    // {
+    //   $task = Task::with('tags')->get()->find(124);
+    //   return response()->json(['tags' => $task]);
+    // }
+
+    // public function addTags()
+    // {
+    //   $task = Task::find(124);
+    //   $task->tags()->attach([1,2,3]);
+    // }
 }
