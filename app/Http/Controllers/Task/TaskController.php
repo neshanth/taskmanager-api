@@ -44,8 +44,11 @@ class TaskController extends Controller
             'description'=> $request->description
         ];
 
-        Task::create($taskData);
-        return response()->json("Task Added");
+        $taskId = Task::create($taskData);
+        return response()->json([
+            'msg' => 'Task Added',
+            'id' => $taskId->id
+        ]);
     }
 
     /**
