@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\Tag\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@ Route::resource("tasks", TaskController::class)->middleware("auth:sanctum");
 Route::patch("/tasks/status/{id}", [TaskController::class, 'changeStatus'])->middleware("auth:sanctum");
 Route::get("/tasks/stats/{id}", [TaskController::class, 'getTaskStats'])->middleware("auth:sanctum");
 Route::get("/tasks/recent/{id}",[TaskController::class,'getRecentTasks'])->middleware("auth:sanctum");
-
+//Tags
+Route::post("/tags/add/{id}",[TagController::class,'addTags'])->middleware("auth:sanctum");
+Route::get("/tags",[TagController::class,'getAllTags'])->middleware("auth:sanctum");
