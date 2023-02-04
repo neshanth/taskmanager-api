@@ -203,6 +203,10 @@ class TaskController extends Controller
     public function getRecentTasks($userId)
     {
         $recentTasks = DB::table("tasks")->where("user_id","=", $userId)->latest()->take(5)->get();
+         foreach($recentTasks as $recentTask){
+                $tagsArray =  $this->getTagsByTask($recentTask->id);
+                $recentTask->tags = $tagsArray;
+        }
         return response()->json(['recent' => $recentTasks]);
     }
      /**
