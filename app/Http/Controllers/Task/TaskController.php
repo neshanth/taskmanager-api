@@ -18,6 +18,10 @@ class TaskController extends Controller
     {
         $userId = $request->user()->id;
         $tasks =  Task::where("user_id", "=", $userId)->get();
+        foreach($tasks as $task){
+          $tagsArray =  $this->getTagsByTask($task->id);
+          $task->tags = $tagsArray;
+        }
         return response()->json(['tasks' => $tasks]);
     }
 
@@ -60,6 +64,8 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+        $tagsArray =  $this->getTagsByTask($task->id);
+        $task->tags = $tagsArray;
         return response()->json($task);
     }
 
@@ -103,23 +109,34 @@ class TaskController extends Controller
         }
         return response()->json("Failed to Delete", 500);
     }
-
-    // Change status of task
+    /**
+     * Change Status of the Task
+     *
+     */
     public function changeStatus(Request $request, $id)
     {
         $task = Task::find($id);
         if ($task) {
             $task->status = !$task->status;
+            $tagsArray =  $this->getTagsByTask($task->id);
             $userId = $request->user()->id;
             $task->save();
             $completedTasks = DB::table("tasks")
             ->where("user_id", "=", $userId)
             ->where("status", "=", 1)
             ->get();
+            foreach($completedTasks as $completedTask){
+                $tagsArray =  $this->getTagsByTask($completedTask->id);
+                $completedTask->tags = $tagsArray;
+            }
             $pendingTasks = DB::table("tasks")
             ->where("user_id", "=", $userId)
             ->where("status", "=", 0)
             ->get();
+             foreach($pendingTasks as $pendingTask){
+                $tagsArray =  $this->getTagsByTask($pendingTask->id);
+                $pendingTask->tags = $tagsArray;
+            }
             return response()->json([
                 'msg' => 'Task Status Updated',
                 'completed' => $completedTasks,
@@ -129,7 +146,10 @@ class TaskController extends Controller
             return response()->json("Task Not Found");
         }
     }
-    // Get Task stats
+     /**
+     * Get Task Stats
+     *
+     */
     public function getTaskStats($userId)
     {
         $completedTasksCount = $this->getCompletedTasks($userId);
@@ -143,6 +163,10 @@ class TaskController extends Controller
 
         return response()->json($stats);
     }
+     /**
+     * Get Completed Tasks
+     *
+     */
     private function getCompletedTasks($userId)
     {
         $completedTasks = DB::table("tasks")
@@ -151,6 +175,10 @@ class TaskController extends Controller
             ->get();
         return count($completedTasks);
     }
+     /**
+     * Get Pending Tasks
+     *
+     */
     private function getPendingTasks($userId)
     {
         $pendingTasks = DB::table("tasks")
@@ -159,26 +187,33 @@ class TaskController extends Controller
             ->get();
         return count($pendingTasks);
     }
+     /**
+     * Get Total Tasks
+     *
+     */
     private function getTotalTasks($userId)
     {
         $totalTasks = Task::where("user_id", "=", $userId)->count();
         return $totalTasks;
     }
+     /**
+     * Get Recent Tasks
+     *
+     */
     public function getRecentTasks($userId)
     {
         $recentTasks = DB::table("tasks")->where("user_id","=", $userId)->latest()->take(5)->get();
         return response()->json(['recent' => $recentTasks]);
     }
-
-    // public function test()
-    // {
-    //   $task = Task::with('tags')->get()->find(124);
-    //   return response()->json(['tags' => $task]);
-    // }
-
-    // public function addTags()
-    // {
-    //   $task = Task::find(124);
-    //   $task->tags()->attach([1,2,3]);
-    // }
+     /**
+     * Get Tags By Task
+     *
+     */
+    private function getTagsByTask($taskId)
+    {
+        $tags = Task::with("tags")->get()->find($taskId);
+        $responseArray = json_decode($tags, true);
+        $tagNameArray = array_column($responseArray['tags'], 'tag_name');
+        return $tagNameArray;
+    }
 }

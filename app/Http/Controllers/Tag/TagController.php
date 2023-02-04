@@ -20,4 +20,11 @@ class TagController extends Controller
         $tags = Tag::select("id","tag_name")->get();
         return response()->json($tags);
     }
+    public function getTagsByTask($taskId)
+    {
+        $tags = Task::with("tags")->get()->find($taskId);
+        $responseArray = json_decode($tags, true);
+        $tagNameArray = array_column($responseArray['tags'], 'tag_name');
+        return response()->json($responseArray["tags"]);
+    }
 }

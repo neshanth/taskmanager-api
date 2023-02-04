@@ -23,3 +23,4 @@ Route::get("/tasks/recent/{id}",[TaskController::class,'getRecentTasks'])->middl
 //Tags
 Route::post("/tags/add/{id}",[TagController::class,'addTags'])->middleware("auth:sanctum");
 Route::get("/tags",[TagController::class,'getAllTags'])->middleware("auth:sanctum");
+Route::get("/tags/{id}",[TagController::class,'getTagsByTask']);
