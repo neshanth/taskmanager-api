@@ -37,7 +37,7 @@ class TaskController extends Controller
             'task' => 'required',
             'due_date' => 'required|date',
             'user_id'=>'required',
-            'description'=>'max:50'
+            'description'=>'max:150'
         ]);
 
         $taskData = [
@@ -82,7 +82,7 @@ class TaskController extends Controller
             'task' => 'required',
             'due_date' => 'required|date',
             'status' => 'required|boolean',
-            'description'=>'max:50'
+            'description'=>'max:150'
         ]);
 
         $taskData = [
