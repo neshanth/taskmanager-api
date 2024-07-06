@@ -131,69 +131,6 @@ class TaskController extends Controller
         ], 500);
     }
      /**
-     * Get Task Stats
-     *
-     */
-    public function getTaskStats($userId)
-    {
-        $completedTasksCount = $this->getCompletedTasks($userId);
-        $pendingTasksCount = $this->getPendingTasks($userId);
-        $totalTasks = $this->getTotalTasks($userId);
-        $stats = [
-            'completed' => $completedTasksCount,
-            'pending' => $pendingTasksCount,
-            'tasks' => $totalTasks
-        ];
-
-        return response()->json($stats);
-    }
-     /**
-     * Get Completed Tasks
-     *
-     */
-    private function getCompletedTasks($userId)
-    {
-        $completedTasks = DB::table("tasks")
-            ->where("user_id", "=", $userId)
-            ->where("status", "=", 1)
-            ->get();
-        return count($completedTasks);
-    }
-     /**
-     * Get Pending Tasks
-     *
-     */
-    private function getPendingTasks($userId)
-    {
-        $pendingTasks = DB::table("tasks")
-            ->where("user_id", "=", $userId)
-            ->where("status", "=", 0)
-            ->get();
-        return count($pendingTasks);
-    }
-     /**
-     * Get Total Tasks
-     *
-     */
-    private function getTotalTasks($userId)
-    {
-        $totalTasks = Task::where("user_id", "=", $userId)->count();
-        return $totalTasks;
-    }
-     /**
-     * Get Recent Tasks
-     *
-     */
-    public function getRecentTasks($userId)
-    {
-        $recentTasks = DB::table("tasks")->where("user_id","=", $userId)->latest()->take(5)->get();
-         foreach($recentTasks as $recentTask){
-                $tagsArray =  $this->getTagsByTask($recentTask->id);
-                $recentTask->tags = $tagsArray;
-        }
-        return response()->json(['recent' => $recentTasks]);
-    }
-     /**
      * Get Tags By Task
      *
      */
