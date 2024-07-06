@@ -121,30 +121,14 @@ class TaskController extends Controller
             $tagsArray =  $this->getTagsByTask($task->id);
             $userId = $request->user()->id;
             $task->save();
-            $completedTasks = DB::table("tasks")
-            ->where("user_id", "=", $userId)
-            ->where("status", "=", 1)
-            ->get();
-            foreach($completedTasks as $completedTask){
-                $tagsArray =  $this->getTagsByTask($completedTask->id);
-                $completedTask->tags = $tagsArray;
-            }
-            $pendingTasks = DB::table("tasks")
-            ->where("user_id", "=", $userId)
-            ->where("status", "=", 0)
-            ->get();
-             foreach($pendingTasks as $pendingTask){
-                $tagsArray =  $this->getTagsByTask($pendingTask->id);
-                $pendingTask->tags = $tagsArray;
-            }
-            return response()->json([
-                'msg' => 'Task Status Updated',
-                'completed' => $completedTasks,
-                'pending' => $pendingTasks
-            ]);
+            return response()->json(['msg' => 'Task Status Updated']);
         } else {
-            return response()->json("Task Not Found");
+            return response()->json(['error' => 'Task Not Found'], 500);
         }
+
+        return response()->json([
+            'error' => "Failed to Update Task Status",
+        ], 500);
     }
      /**
      * Get Task Stats
