@@ -136,9 +136,20 @@ class TaskController extends Controller
      */
     private function getTagsByTask($taskId)
     {
-        $tags = Task::with("tags")->get()->find($taskId);
-        $responseArray = json_decode($tags, true);
-        $tagNameArray = array_column($responseArray['tags'], 'tag_name');
-        return $tagNameArray;
+           // Fetch the task with its tags
+            $task = Task::with('tags')->find($taskId);
+            // Check if task exists
+            if (!$task) {
+                return ['error' => 'Task not found'];
+            }
+            // Transform tags to include only ID and name
+            $tags = $task->tags->map(function ($tag) {
+                return [
+                    'value' => $tag->id,
+                    'label' => $tag->tag_name
+                ];
+            })->toArray();
+            // Return the transformed tags
+            return $tags;
     }
 }

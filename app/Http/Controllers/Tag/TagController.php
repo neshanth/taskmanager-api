@@ -18,7 +18,14 @@ class TagController extends Controller
     public function getAllTags()
     {
         $tags = Tag::select("id","tag_name")->get();
-        return response()->json($tags);
+         // Transform the tags to the desired format
+        $formattedTags = $tags->map(function ($tag) {
+            return [
+                'value' => $tag->id,
+                'label' => $tag->tag_name
+            ];
+        });
+        return response()->json($formattedTags);
     }
     public function getTagsByTask($taskId)
     {
