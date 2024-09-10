@@ -92,7 +92,10 @@ class TaskController extends Controller
             'description'=> $request->description
         ];
         Task::find($id)->update($taskData);
-        return response()->json("Task Updated");
+        return response()->json([
+            'msg' => 'Task Updated',
+            'id' => $id
+        ]);
     }
 
     /**
