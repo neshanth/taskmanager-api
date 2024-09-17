@@ -3,36 +3,27 @@ name: Deploy Laravel API
 on:
   push:
     branches:
-      - develop # Trigger deployment on push to the main branch
+      - develop # Trigger deployment on push to main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up PHP
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1" # Specify your PHP version
-          extensions: mbstring, bcmath, pdo, mysql
+          php-version: "8.1" # Update PHP version if needed
+          extensions: mbstring, pdo, mysql
 
-      # Step 3: Install Composer dependencies
       - name: Install Composer Dependencies
         run: |
           composer install --prefer-dist --no-ansi --no-interaction --no-scripts --no-progress --optimize-autoloader
 
-      # Optional: Run migrations (if needed)
-      - name: Run Migrations
-        run: |
-          php artisan migrate --force
-
-      # Step 4: Clear caches (optional)
-      - name: Optimize and Cache
+      - name: Clear caches (optional)
         run: |
           php artisan config:cache
           php artisan route:cache
