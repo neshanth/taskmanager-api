@@ -22,6 +22,7 @@ class TaskController extends Controller
           $tagsArray =  $this->getTagsByTask($task->id);
           $task->tags = $tagsArray;
         }
+        // This will return all the tasks
         return response()->json(['tasks' => $tasks]);
     }
 
