@@ -1,0 +1,48 @@
+name: Deploy Laravel API
+
+on:
+  push:
+    branches:
+      - develop # Trigger deployment on push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up PHP
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1" # Specify your PHP version
+          extensions: mbstring, bcmath, pdo, mysql # Add necessary PHP extensions
+
+      # Step 3: Install Composer dependencies
+      - name: Install Composer Dependencies
+        run: |
+          composer install --prefer-dist --no-ansi --no-interaction --no-scripts --no-progress --optimize-autoloader
+
+      # Step 4: Deploy to the server via SSH
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.DEPLOY_HOST }} # Add SSH host in GitHub secrets
+          username: ${{ secrets.DEPLOY_USER }} # Add SSH user in GitHub secrets
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Add SSH private key in GitHub secrets
+          port: 22
+          script: |
+            cd /path/to/your/project  # Specify the project path on the server
+            git pull origin develop  # Pull latest changes
+            composer install --no-interaction --prefer-dist --optimize-autoloader  # Install PHP dependencies
+            php artisan migrate --force  # Run migrations
+            php artisan config:cache  # Cache configuration
+            php artisan route:cache  # Cache routes
+
+      # Optional: Step 5: Restart PHP-FPM or any necessary services
+      - name: Restart PHP-FPM
+        run: |
+          sudo service php8.1-fpm restart  # Adjust PHP version if necessary
