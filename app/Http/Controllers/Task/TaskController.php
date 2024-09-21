@@ -17,7 +17,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $userId = $request->user()->id;
-        $tasks =  Task::where("user_id", "=", $userId)->get();
+        $tasks =  Task::where("user_id", "=", $userId)->orderBy('created_at', 'desc')->get();
         foreach($tasks as $task){
           $tagsArray =  $this->getTagsByTask($task->id);
           $task->tags = $tagsArray;

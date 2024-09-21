@@ -10,6 +10,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = ['task','description','due_date','status','user_id'];
+    public $timestamps = true;
 
       public function tags()
     {
