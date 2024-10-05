@@ -28,6 +28,7 @@ class TagController extends Controller
         });
         return response()->json($formattedTags);
     }
+    // Get tags by task
     public function getTagsByTask($taskId)
     {
         $tags = Task::with("tags")->get()->find($taskId);
