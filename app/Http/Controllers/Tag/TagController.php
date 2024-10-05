@@ -15,6 +15,7 @@ class TagController extends Controller
        $task->tags()->sync($request->tagIds);
        return response()->json(["msg" => "Tags Added"]);
     }
+    // Get all Tags
     public function getAllTags()
     {
         $tags = Tag::select("id","tag_name")->get();
