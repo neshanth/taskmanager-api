@@ -20,5 +20,5 @@ Route::resource("tasks", TaskController::class)->middleware("auth:sanctum");
 Route::patch("/tasks/status/{id}", [TaskController::class, 'changeStatus'])->middleware("auth:sanctum");
 //Tags
 Route::post("/tags/add/{id}",[TagController::class,'addTags'])->middleware("auth:sanctum");
-Route::get("/tags",[TagController::class,'getAllTags'])->middleware("auth:sanctum");
+Route::get("/tags",[TagController::class,'getAllTags']);
 Route::get("/tags/{id}",[TagController::class,'getTagsByTask']);
