@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    // Cron scheduler functions
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function(){
