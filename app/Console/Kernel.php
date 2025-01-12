@@ -20,8 +20,6 @@ class Kernel extends ConsoleKernel
         $schedule->call(function(){
             $users = DB::table("users")->where("email","=","demouser@demo.com")->get();
             $userId = $users[0]->id;
-            $tasks = DB::table("tasks")->where("user_id","=", $userId)->get();
-            if(count($tasks) > 0){
                 DB::table("tasks")->where("user_id","=",$userId)->delete();
                 $tasks = [
                     [
@@ -162,8 +160,8 @@ class Kernel extends ConsoleKernel
                 ];
                 
                 DB::table('tasks')->insert($tasks);
-            }
-        })->daily();
+            
+        })->everyMinute();
     }
 
     /**
