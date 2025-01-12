@@ -161,7 +161,7 @@ class Kernel extends ConsoleKernel
                 
                 DB::table('tasks')->insert($tasks);
             
-        })->everyMinute();
+        })->daily();
     }
 
     /**
