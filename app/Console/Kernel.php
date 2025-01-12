@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
                 DB::table("tasks")->where("user_id","=",$userId)->delete();
                 $tasks = [
                     [
-                        'description' => 'Review the current project to ensure everything is on track. Check each team member’s progress and address any issues. Send a summary email with action items for the team.',
+                        'description' => 'Review the project progress, address team issues, and send a summary email with action items.',
                         'due_date' => now()->toDateString(),
                         'status' => 0,
                         'task' => 'Project Status Review and Action Plan',
@@ -32,88 +32,88 @@ class Kernel extends ConsoleKernel
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Finalize the designs for the new feature. Make sure all feedback from the client is incorporated and ensure the designs are fully responsive. Prepare the design files for handoff to development.',
+                        'description' => 'Finalize designs for a new feature, incorporate client feedback, and prepare files for handoff.',
                         'due_date' => now()->addDays(1)->toDateString(),
                         'status' => 0,
-                        'task' => 'Finalize and Handoff New Feature Designs for chat application',
+                        'task' => 'Finalize and Handoff New Feature Designs',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Test the latest release for any bugs or performance issues. Focus on critical areas like the payment gateway and dashboard functionalities. Report any bugs or improvements to the development team.',
+                        'description' => 'Test the latest release for bugs and report issues focusing on critical areas like payment gateway.',
                         'due_date' => now()->toDateString(),
-                        'status' => 1, // Completed task
+                        'status' => 1,
                         'task' => 'Conduct Release Testing and Report Issues',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Prepare the presentation for the upcoming meeting. Focus on key project milestones and future goals. Ensure all visual elements are clear and aligned with the project timeline.',
+                        'description' => 'Prepare a meeting presentation highlighting key milestones and future goals with clear visuals.',
                         'due_date' => now()->addDays(2)->toDateString(),
                         'status' => 0,
-                        'task' => 'Create Presentation for Upcoming Meeting with sales team',
+                        'task' => 'Create Presentation for Upcoming Meeting',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Organize a catch-up meeting with the marketing team. Review the ongoing campaigns and discuss improvements for the next quarter. Ensure the team is aligned with the new goals.',
+                        'description' => 'Organize a meeting to review marketing campaigns, discuss improvements, and align team goals.',
                         'due_date' => now()->addDays(3)->toDateString(),
                         'status' => 0,
-                        'task' => 'Marketing Team Meeting for Campaign Review at Residency Towers',
+                        'task' => 'Marketing Team Meeting for Campaign Review',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Handle customer support tickets. Prioritize urgent issues and provide solutions in a timely manner. Keep track of all support cases and ensure that each one is resolved.',
+                        'description' => 'Handle customer support tickets, prioritize urgent issues, and ensure timely resolution.',
                         'due_date' => now()->toDateString(),
-                        'status' => 1, // Completed task
-                        'task' => 'Manage and Resolve Customer Support Tickets by 5pm',
+                        'status' => 1,
+                        'task' => 'Manage and Resolve Customer Support Tickets',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Start the process of gathering data for the upcoming report. Collect information from all departments and ensure that the data is accurate. Organize everything to prepare for analysis.',
+                        'description' => 'Start gathering accurate data for the report by collecting information from all departments.',
                         'due_date' => now()->addDays(4)->toDateString(),
                         'status' => 0,
-                        'task' => 'Gather Sales Data for Monthly Report by 4:30 PM',
+                        'task' => 'Gather Sales Data for Monthly Report',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Review the codebase for any outdated or deprecated functions. Replace them with more efficient solutions and run tests to make sure nothing breaks. Document the changes made for the team.',
+                        'description' => 'Review the codebase to replace deprecated functions, test thoroughly, and document updates.',
                         'due_date' => now()->addDays(5)->toDateString(),
                         'status' => 0,
-                        'task' => 'Refactor Codebase for Deprecated Jquery Functions',
+                        'task' => 'Refactor Codebase for Deprecated Functions',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Prepare for the next team-building event. Research activity ideas, gather quotes, and plan logistics. Make sure to coordinate with the event organizer to ensure everything is set up.',
+                        'description' => 'Plan a team-building event by researching activities, gathering quotes, and coordinating logistics.',
                         'due_date' => now()->addDays(6)->toDateString(),
                         'status' => 0,
-                        'task' => 'Organize Team-Building Event at Taj Hotel',
+                        'task' => 'Organize Team-Building Event',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Complete the UI design for the new dashboard. Focus on user experience and make sure the design is clean and intuitive. Finalize the design elements for development handoff.',
+                        'description' => 'Complete UI design for the dashboard focusing on user experience and clean, intuitive layouts.',
                         'due_date' => now()->addDays(7)->toDateString(),
                         'status' => 0,
-                        'task' => 'Design UI for New E-commerce Dashboard',
+                        'task' => 'Design UI for New Dashboard',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Review the current marketing strategies and assess their effectiveness. Suggest improvements and propose new ideas to enhance visibility. Ensure alignment with the business goals.',
+                        'description' => 'Evaluate current marketing strategies, suggest improvements, and align with business goals.',
                         'due_date' => now()->addDays(1)->toDateString(),
                         'status' => 0,
                         'task' => 'Evaluate and Improve Marketing Strategies',
@@ -122,16 +122,16 @@ class Kernel extends ConsoleKernel
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Prepare the office for an important client meeting. Tidy up the workspace, ensure all documents and equipment are ready, and set up a presentation area.',
+                        'description' => 'Prepare the workspace for a client meeting with tidy spaces and necessary equipment.',
                         'due_date' => now()->toDateString(),
-                        'status' => 1, // Completed task
+                        'status' => 1,
                         'task' => 'Office Preparation for Client Meeting',
                         'user_id' => $userId,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
                     [
-                        'description' => 'Complete reading the industry-related book for continuous learning. Take notes on valuable insights and implement them in your current workflow to improve productivity.',
+                        'description' => 'Complete reading an industry-related book and implement key insights in workflows.',
                         'due_date' => now()->addDays(8)->toDateString(),
                         'status' => 0,
                         'task' => 'Finish Reading Industry-Related Book',
@@ -139,9 +139,8 @@ class Kernel extends ConsoleKernel
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
-                    // Personal Task 1
                     [
-                        'description' => 'Go to the airline website and book tickets for a vacation to Europe. Ensure that everything is in order and that there are enough seats available.',
+                        'description' => 'Book flight tickets for a vacation to Europe, ensuring availability and completing payment.',
                         'due_date' => now()->toDateString(),
                         'status' => 0,
                         'task' => 'Book Flight Tickets for Vacation',
@@ -149,9 +148,8 @@ class Kernel extends ConsoleKernel
                         'created_at' => now(),
                         'updated_at' => now(),
                     ],
-                    // Personal Task 2
                     [
-                        'description' => 'Plan a workout routine for the week and stick to it. Include exercises targeting different muscle groups and ensure to include rest days. Make time each day to complete the workout.',
+                        'description' => 'Plan and follow a weekly workout schedule targeting all muscle groups with rest days.',
                         'due_date' => now()->toDateString(),
                         'status' => 0,
                         'task' => 'Create and Follow Weekly Workout Plan',
@@ -160,7 +158,6 @@ class Kernel extends ConsoleKernel
                         'updated_at' => now(),
                     ],
                 ];
-                
                 DB::table('tasks')->insert($tasks);
             
         })->daily();
